@@ -1,0 +1,5 @@
+channels:
+  - conda-forge
+category: orchestration
+dependencies:
+  - apache-airflow >=3,<4

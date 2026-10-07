@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "geoml-platform"
+version = "0.1.0"
+description = "A reproducible burned-area geospatial ML vertical slice."
+requires-python = ">=3.12"
+dependencies = [
+  "click>=8,<8.5",
+  "numpy>=2,<3",
+  "pydantic>=2.12,<3",
+  "rasterio==1.5.1",
+  "structlog>=25,<26",
+  "typer>=0.15,<1",
+]
+
+[project.optional-dependencies]
+dev = [
+  "mypy>=1.15,<2",
+  "pip-audit>=2,<3",
+  "pre-commit>=4,<5",
+  "pytest>=8,<9",
+  "ruff>=0.12,<1",
+]
+
+[project.scripts]
+geoml = "geoml_platform.cli:app"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+files = ["src"]
+
+[[tool.mypy.overrides]]
+module = ["rasterio.*", "structlog"]
+ignore_missing_imports = true

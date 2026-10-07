@@ -1,0 +1,7 @@
+channels:
+  - conda-forge
+category: training
+dependencies:
+  - pytorch-gpu >=2.13,<2.14
+  - cuda-version =13.0
+  - mlflow >=3.14,<3.15

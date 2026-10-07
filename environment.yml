@@ -1,0 +1,9 @@
+name: geoml-platform
+channels:
+  - conda-forge
+dependencies:
+  - python >=3.12,<3.13
+  - pip >=26,<27
+platforms:
+  - win-64
+  - linux-64

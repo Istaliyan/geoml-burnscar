@@ -1,0 +1,11 @@
+# Large local source and derived geospatial artifacts. Recreate with documented commands.
+data/
+docs/decisions/
+docs/learning-*.md
+.venv/
+.mypy_cache/
+.pytest_cache/
+.pytest-tmp/
+.ruff_cache/
+__pycache__/
+*.egg-info/

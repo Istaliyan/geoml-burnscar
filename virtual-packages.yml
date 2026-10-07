@@ -1,0 +1,10 @@
+# System capabilities used while resolving cross-platform Conda locks.
+# The local NVIDIA driver 591.86 reports CUDA 13.1.
+subdirs:
+  win-64:
+    packages:
+      __cuda: "13.1"
+  linux-64:
+    packages:
+      __cuda: "13.1"
+      __glibc: "2.28"

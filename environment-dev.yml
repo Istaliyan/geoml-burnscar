@@ -1,0 +1,9 @@
+channels:
+  - conda-forge
+category: dev
+dependencies:
+  - ruff >=0.12,<1
+  - mypy >=1.15,<2
+  - pytest >=8,<9
+  - pre-commit >=4,<5
+  - pip-audit >=2,<3
