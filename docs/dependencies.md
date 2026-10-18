@@ -2,6 +2,33 @@
 
 ## Status and scope
 
+### Milestone 3 update (2026-10-18)
+
+The Windows ingestion path continues the Milestone 2 CPython 3.12 wheel-based
+environment. `pyproject.toml` defines supported dependencies and
+`requirements-dev.lock` records the exact development/test snapshot; CI installs
+that snapshot before the editable package. The earlier Conda locks are retained
+as historical inputs for future Linux services and GPU training, not as the
+current ingestion environment.
+
+Milestone 3 adds PySTAC Client, HTTPX, SQLAlchemy, Psycopg's binary wheel, Shapely,
+and development-only Shapely type stubs. Shapely validates perimeters and checks
+scene coverage; its wheel avoids adding another GDAL binding. Psycopg supplies
+the PostgreSQL driver without a local libpq build. PostgreSQL/PostGIS runs in the
+selected `postgis/postgis:17-3.5` container. GeoAlchemy2 is deferred until native
+spatial table mappings are required; the ingestion schema exposes its stored
+GeoJSON through a PostGIS geometry view. Pixel processing remains in Rasterio.
+
+No new GDAL/Conda stack is introduced on Windows. The original GDAL command-line
+tools are needed only to export a new EFFIS feature from the SpatiaLite source;
+the package imports its WGS84 GeoJSON. See [the ingestion runbook](milestone3-ingestion.md)
+for schema setup, storage/recovery behavior, provider evidence, and limitations.
+
+Clean Linux container verification found that `python:3.12-slim` does not include
+`libexpat.so.1`, which Rasterio's wheel requires. Debian-based application/test
+containers must install `libexpat1` before importing Rasterio. CI installs this
+system dependency explicitly; Python package pins alone do not supply it.
+
 **Status:** accepted for Milestone 0; revise only when a milestone produces evidence that changes a decision.
 
 This document selects the smallest dependency set required by the plan. It does not install packages or create application scaffolding. Dependencies are introduced only in their named milestone, then resolved to exact versions in Conda lock files.

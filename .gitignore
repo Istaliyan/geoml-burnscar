@@ -9,3 +9,6 @@ docs/learning-*.md
 .ruff_cache/
 __pycache__/
 *.egg-info/
+# Local Compose configuration and database backup artifacts.
+.env
+*.dump

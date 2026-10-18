@@ -1,0 +1,19 @@
+services:
+  postgis:
+    image: postgis/postgis:17-3.5
+    environment:
+      POSTGRES_DB: geoml
+      POSTGRES_USER: geoml
+      POSTGRES_PASSWORD: ${GEOML_POSTGRES_PASSWORD:?Set GEOML_POSTGRES_PASSWORD}
+    ports:
+      - "127.0.0.1:${GEOML_POSTGRES_PORT:-5433}:5432"
+    volumes:
+      - postgis-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U geoml -d geoml"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+volumes:
+  postgis-data:
